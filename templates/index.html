@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Redlining RAG System</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-file-contract"></i> Contract Redlining RAG System</h1>
+                <p>AI-powered contract analysis with MISTRAL7b • Real-time risk assessment</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-card">
+                    <div class="upload-header">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h2>Upload Contract Document</h2>
+                        <p>Upload a PDF contract to begin AI-powered risk analysis</p>
+                    </div>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="fileInput" accept=".pdf" style="display: none;">
+                        <div class="upload-placeholder">
+                            <i class="fas fa-file-pdf"></i>
+                            <h3>Drop PDF file here or click to browse</h3>
+                            <p>Maximum file size: 10MB</p>
+                            <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                                <i class="fas fa-folder-open"></i> Choose File
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="upload-progress" id="uploadProgress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p id="progressText">Uploading...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Section -->
+            <section class="analysis-section" id="analysisSection" style="display: none;">
+                <div class="analysis-header">
+                    <h2><i class="fas fa-chart-line"></i> Risk Analysis Dashboard</h2>
+                    <div class="document-info" id="documentInfo"></div>
+                </div>
+
+                <!-- Risk Summary -->
+                <div class="risk-summary" id="riskSummary">
+                    <div class="risk-card risk-red">
+                        <div class="risk-icon">🔴</div>
+                        <div class="risk-details">
+                            <h3>HIGH RISK</h3>
+                            <span class="risk-count" id="redCount">0</span>
+                            <p>Requires immediate attention</p>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-card risk-amber">
+                        <div class="risk-icon">🟡</div>
+                        <div class="risk-details">
+                            <h3>MEDIUM RISK</h3>
+                            <span class="risk-count" id="amberCount">0</span>
+                            <p>Review recommended</p>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-card risk-green">
+                        <div class="risk-icon">🟢</div>
+                        <div class="risk-details">
+                            <h3>LOW RISK</h3>
+                            <span class="risk-count" id="greenCount">0</span>
+                            <p>Generally acceptable</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overall Assessment -->
+                <div class="overall-assessment" id="overallAssessment">
+                    <div class="assessment-header">
+                        <h3><i class="fas fa-balance-scale"></i> Overall Document Risk</h3>
+                        <span class="overall-risk-badge" id="overallRiskBadge">ANALYZING...</span>
+                    </div>
+                    <div class="recommendations" id="recommendations"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeDocument()">
+                        <i class="fas fa-microscope"></i> Analyze Document
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportResults()" id="exportBtn" style="display: none;">
+                        <i class="fas fa-download"></i> Export Results
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetApp()">
+                        <i class="fas fa-refresh"></i> New Analysis
+                    </button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2><i class="fas fa-file-signature"></i> Redlined Contract</h2>
+                    <p>Click on any clause to see detailed analysis</p>
+                </div>
+                
+                <div class="redlined-document-container">
+                    <div class="redlined-document" id="redlinedDocument">
+                        <!-- Redlined content will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Clause Details Modal -->
+                <div class="modal" id="clauseModal" style="display: none;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Clause Analysis Details</h3>
+                            <span class="close" onclick="closeModal()">&times;</span>
+                        </div>
+                        <div class="modal-body" id="modalBody">
+                            <!-- Clause details will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Overlay -->
+            <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                <div class="loading-spinner">
+                    <i class="fas fa-cog fa-spin"></i>
+                    <h3>Analyzing Contract...</h3>
+                    <p>This may take a few moments</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Contract Redlining RAG System • Powered by MISTRAL7b & ChromaDB</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html> 
