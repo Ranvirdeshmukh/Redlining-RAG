@@ -1,8 +1,8 @@
-# 🔴 Contract Redlining RAG System
+#  Contract Redlining RAG System
 
 An AI-powered contract analysis tool that automatically identifies and categorizes legal risks in contract documents using MISTRAL7b and RAG (Retrieval-Augmented Generation) technology.
 
-## 🚀 Features
+##  Features
 
 - **📄 PDF Document Processing** - Upload and extract text from PDF contracts
 - **🤖 AI-Powered Analysis** - Uses MISTRAL7b model for intelligent clause classification
@@ -14,7 +14,7 @@ An AI-powered contract analysis tool that automatically identifies and categoriz
 - **💾 Export Functionality** - Export results in JSON format
 - **🔄 Real-time Processing** - Fast document analysis and results
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 Contract Redlining RAG System
@@ -26,7 +26,7 @@ Contract Redlining RAG System
 └── Real-time Analysis & Visualization
 ```
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 - **Backend**: FastAPI, Python 3.8+
 - **AI/ML**: MISTRAL7b, Transformers, Sentence Transformers
@@ -35,7 +35,7 @@ Contract Redlining RAG System
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
 - **Styling**: Modern CSS with Font Awesome icons
 
-## ⚡ Quick Start
+##  Quick Start
 
 ### 1. Installation
 
@@ -64,7 +64,7 @@ The application will be available at: `http://localhost:8000`
 3. **Review Results**: View color-coded clauses and risk analysis
 4. **Export Results**: Download analysis in JSON format
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 redlining-rag/
@@ -85,7 +85,7 @@ redlining-rag/
 └── README.md                 # Documentation
 ```
 
-## 🎯 Risk Classification System
+##  Risk Classification System
 
 ### 🔴 RED (High Risk)
 - Unlimited liability clauses
@@ -108,7 +108,7 @@ redlining-rag/
 - Industry standard terms
 - Cooperative obligations
 
-## 🔧 Configuration
+## Configuration
 
 ### Model Configuration
 The system uses a fallback approach for model loading:
@@ -120,7 +120,7 @@ The system uses a fallback approach for model loading:
 - Adjust chunk sizes in `document_processor.py`
 - Configure embedding models in `rag_engine.py`
 
-## 📊 API Endpoints
+##  API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -131,7 +131,7 @@ The system uses a fallback approach for model loading:
 | `/classify-text` | POST | Classify single text clause |
 | `/health` | GET | System health check |
 
-## 🎨 UI Features
+##  UI Features
 
 - **Modern Design** - Clean, professional interface
 - **Responsive Layout** - Works on desktop and mobile
@@ -140,7 +140,7 @@ The system uses a fallback approach for model loading:
 - **Keyboard Shortcuts** - Ctrl+U (upload), Ctrl+A (analyze)
 - **Drag & Drop** - Intuitive file upload experience
 
-## 🔍 Advanced Features
+##  Advanced Features
 
 ### Semantic Search
 ```javascript
@@ -158,14 +158,14 @@ const results = await searchClauses("liability indemnification");
 - Monitor model performance
 - System health checks
 
-## 🚀 Performance Optimization
+##  Performance Optimization
 
 - **Lazy Loading** - Models load on demand
 - **Efficient Chunking** - Optimized text processing
 - **Caching** - Vector embeddings cached in ChromaDB
 - **Parallel Processing** - Multiple documents simultaneously
 
-## 🔒 Security & Privacy
+##  Security & Privacy
 
 - Files processed locally (no external API calls)
 - Temporary file storage only
@@ -200,7 +200,7 @@ const results = await searchClauses("liability indemnification");
 - Ensure sufficient RAM (8GB+ recommended)
 - Process smaller documents first for testing
 
-## 📈 Future Enhancements
+##  Future Enhancements
 
 - [ ] Support for DOCX files
 - [ ] Multi-language contract analysis
@@ -209,7 +209,7 @@ const results = await searchClauses("liability indemnification");
 - [ ] Collaborative review features
 - [ ] Advanced export formats (PDF, Word)
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create feature branch (`git checkout -b feature/new-feature`)
@@ -217,9 +217,7 @@ const results = await searchClauses("liability indemnification");
 4. Push to branch (`git push origin feature/new-feature`)
 5. Create Pull Request
 
-## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🆘 Support
 
