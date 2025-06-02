@@ -174,13 +174,24 @@ class RAGEngine:
     def _fallback_risk_analysis(self, clause_text: str) -> tuple:
         """Fallback rule-based risk analysis"""
         high_risk_keywords = [
-            "unlimited liability", "personal guarantee", "indemnify", "hold harmless",
-            "liquidated damages", "penalty", "forfeiture", "non-compete", "exclusivity"
+            "unlimited liability", "personal guarantee", "joint and several liability",
+            "liquidated damages", "penalty clause", "forfeiture", "punitive damages",
+            "indemnification", "hold harmless", "defend and indemnify",
+            "non-compete", "restraint of trade", "exclusivity agreement",
+            "automatic renewal", "evergreen clause", "perpetual license",
+            "unilateral termination", "termination for convenience",
+            "assignment of all rights", "work for hire", "moral rights waiver"
         ]
         
         medium_risk_keywords = [
-            "termination", "breach", "default", "force majeure", "intellectual property",
-            "confidential", "proprietary", "governing law", "arbitration"
+            "termination", "breach", "default", "material breach",
+            "force majeure", "act of god", "unforeseen circumstances",
+            "intellectual property", "proprietary information", "trade secrets",
+            "confidentiality", "non-disclosure", "proprietary rights",
+            "governing law", "jurisdiction", "venue", "arbitration",
+            "dispute resolution", "mediation", "litigation",
+            "limitation of liability", "consequential damages", "indirect damages",
+            "warranty disclaimer", "as is", "merchantability"
         ]
         
         text_lower = clause_text.lower()
