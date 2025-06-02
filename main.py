@@ -9,6 +9,7 @@ import uuid
 import asyncio
 from typing import Dict, Any
 import logging
+from contextlib import asynccontextmanager
 
 from models.document_processor import DocumentProcessor
 from models.rag_engine import RAGEngine
@@ -18,24 +19,13 @@ from models.redlining_classifier import RedliningClassifier
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize FastAPI app
-app = FastAPI(
-    title="Contract Redlining RAG System",
-    description="AI-powered contract analysis and risk assessment tool",
-    version="1.0.0"
-)
-
-# Mount static files and templates
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
-
-# Global variables for models (initialized on startup)
+# Global variables for models
 document_processor = None
 rag_engine = None
 redlining_classifier = None
 
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     """Initialize models on startup"""
     global document_processor, rag_engine, redlining_classifier
     
@@ -60,6 +50,23 @@ async def startup_event():
     except Exception as e:
         logger.error(f"❌ Error during startup: {str(e)}")
         raise
+    
+    yield
+    
+    # Cleanup (if needed)
+    logger.info("Shutting down...")
+
+# Initialize FastAPI app with lifespan
+app = FastAPI(
+    title="Contract Redlining RAG System",
+    description="AI-powered contract analysis and risk assessment tool",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
+# Mount static files and templates
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
