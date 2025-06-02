@@ -88,6 +88,9 @@ async function uploadFile(file) {
         if (result.success) {
             currentDocumentId = result.doc_id;
             hideUploadProgress();
+            
+            // Hide upload area and show analysis section
+            document.getElementById('uploadArea').style.display = 'none';
             showAnalysisSection(result.metadata);
             showToast('Document uploaded successfully!', 'success');
         } else {
@@ -357,6 +360,8 @@ function resetApp() {
     currentDocumentId = null;
     analysisData = null;
     
+    // Show upload area again
+    document.getElementById('uploadArea').style.display = 'block';
     document.getElementById('analysisSection').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'none';
     document.getElementById('fileInput').value = '';
