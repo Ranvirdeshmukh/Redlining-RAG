@@ -219,14 +219,14 @@ const results = await searchClauses("liability indemnification");
 
 
 
-## 🆘 Support
+##  Support
 
 For issues and questions:
 - Create GitHub issue
 - Check troubleshooting section
 - Review API documentation
 
-## 🏆 Acknowledgments
+##  Acknowledgments
 
 - **MISTRAL AI** - For the powerful language model
 - **ChromaDB** - For efficient vector storage
@@ -235,6 +235,5 @@ For issues and questions:
 
 ---
 
-**Built with ❤️ for legal professionals and contract analysis**
 
-> ⚠️ **Disclaimer**: This tool is for assistance only. All contract analysis should be reviewed by qualified legal professionals. 
+>  **Disclaimer**: This tool is for assistance only. All contract analysis should be reviewed by qualified legal professionals. 
