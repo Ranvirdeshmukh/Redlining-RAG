@@ -1,0 +1,35 @@
+SAMPLE SERVICE AGREEMENT
+
+This Service Agreement ("Agreement") is entered into on [Date] between ABC Corporation ("Client") and XYZ Services ("Provider").
+
+1. SERVICES
+Provider shall provide consulting services to Client with reasonable best efforts. The services shall include project management, technical consulting, and strategic guidance.
+
+2. PAYMENT TERMS
+Client agrees to pay Provider the sum of $50,000 for services rendered. Payment shall be made within 30 days of invoice date. Late payments may incur a penalty of 1.5% per month.
+
+3. LIABILITY AND INDEMNIFICATION
+Provider shall indemnify and hold harmless Client against all claims, damages, and expenses arising from Provider's performance. Client's liability is unlimited for any breach of confidentiality obligations.
+
+4. TERMINATION
+Either party may terminate this agreement with 30 days written notice. Upon termination for convenience by Client, Provider shall be entitled to liquidated damages equal to 50% of the remaining contract value.
+
+5. INTELLECTUAL PROPERTY
+All work product, including proprietary information and trade secrets developed under this agreement, shall be assigned to Client as work for hire. Provider waives all moral rights in such work.
+
+6. CONFIDENTIALITY
+Both parties agree to maintain confidential information in strictest confidence. This obligation shall survive termination and continue indefinitely.
+
+7. GOVERNING LAW
+This agreement shall be governed by the laws of Delaware. Any disputes shall be resolved through binding arbitration in Delaware.
+
+8. NON-COMPETE
+Provider agrees not to compete with Client's business for a period of 2 years following termination in any geographic market where Client operates.
+
+9. FORCE MAJEURE
+Neither party shall be liable for delays due to force majeure events including acts of God, natural disasters, or government actions.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement.
+
+_______________________          _______________________
+ABC Corporation                  XYZ Services 
