@@ -78,7 +78,7 @@
   gap: var(--spacing-base);
 }
 
-/* Apple-style Status Indicator */
+/* Apple-style Status Indicator with Blinking */
 .status-indicator {
   display: flex;
   align-items: center;
@@ -92,6 +92,7 @@
   color: var(--color-text-secondary);
   transition: all var(--transition-base);
   box-shadow: var(--shadow-xs);
+  animation: statusBlink 3s ease-in-out infinite;
 }
 
 .status-indicator:hover {
@@ -99,16 +100,37 @@
   border-color: var(--color-gray-300);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
+  animation-play-state: paused;
+}
+
+/* Realistic Status Blinking Animation */
+@keyframes statusBlink {
+  0%, 85% {
+    background: var(--color-background-secondary);
+    border-color: var(--color-gray-200);
+    box-shadow: var(--shadow-xs);
+  }
+  90%, 95% {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: #22C55E;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3), 0 0 12px rgba(34, 197, 94, 0.4), var(--shadow-sm);
+  }
+  100% {
+    background: var(--color-background-secondary);
+    border-color: var(--color-gray-200);
+    box-shadow: var(--shadow-xs);
+  }
 }
 
 /* Sophisticated Status Dot Animation */
 .status-dot {
   width: 8px;
   height: 8px;
-  background: radial-gradient(circle, var(--color-green) 0%, #45C55A 100%);
+  background: radial-gradient(circle, #22C55E 0%, #16A34A 100%);
   border-radius: 50%;
   position: relative;
-  box-shadow: 0 0 0 2px rgba(81, 207, 102, 0.2);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+  animation: statusDotBlink 3s ease-in-out infinite;
 }
 
 .status-dot::before {
@@ -118,9 +140,32 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: rgba(81, 207, 102, 0.3);
+  background: rgba(34, 197, 94, 0.4);
   border-radius: 50%;
   animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Enhanced Status Dot Blinking */
+@keyframes statusDotBlink {
+  0%, 85% {
+    background: radial-gradient(circle, #22C55E 0%, #16A34A 100%);
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+  }
+  90% {
+    background: radial-gradient(circle, #4ADE80 0%, #22C55E 100%);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.6), 0 0 16px rgba(34, 197, 94, 0.5);
+    transform: scale(1.15);
+  }
+  95% {
+    background: radial-gradient(circle, #22C55E 0%, #16A34A 100%);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
+    transform: scale(1.08);
+  }
+  100% {
+    background: radial-gradient(circle, #22C55E 0%, #16A34A 100%);
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+    transform: scale(1);
+  }
 }
 
 @keyframes pulse-ring {
