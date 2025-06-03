@@ -1,8 +1,8 @@
-# 🚀 Enhanced Legal Contract Redlining System with AI-Powered Legal Precedent Analysis
+#  Enhanced Legal Contract Redlining System with AI-Powered Legal Precedent Analysis
 
 An enterprise-grade AI-powered contract analysis tool that automatically identifies and categorizes legal risks using **MISTRAL-7B**, **legal precedent analysis**, and **RAG (Retrieval-Augmented Generation)** technology powered by the **CUAD (Contract Understanding Atticus Dataset)**.
 
-## 🆕 **Major Enhancements (2024)**
+##  **Major Enhancements (2024)**
 
 **🎯 90%+ Classification Accuracy** (up from 60% keyword-based)  
 **📚 Legal Precedent Database** powered by CUAD legal dataset  
@@ -12,7 +12,7 @@ An enterprise-grade AI-powered contract analysis tool that automatically identif
 
 ---
 
-## ✨ **Key Features**
+##  **Key Features**
 
 ### 🤖 **AI-Powered Legal Analysis**
 - **Mistral-7B Language Model** - Advanced legal language understanding
@@ -41,7 +41,7 @@ An enterprise-grade AI-powered contract analysis tool that automatically identif
 
 ---
 
-## 🏗️ **Enhanced Architecture**
+##  **Enhanced Architecture**
 
 ```
 Enhanced Legal Contract Redlining System
@@ -71,7 +71,7 @@ Enhanced Legal Contract Redlining System
 
 ---
 
-## 🛠️ **Technology Stack**
+##  **Technology Stack**
 
 ### **Backend & AI**
 - **Framework**: FastAPI 0.104.1, Python 3.8+
@@ -97,7 +97,7 @@ Enhanced Legal Contract Redlining System
 
 ---
 
-## 🚀 **Quick Start**
+##  **Quick Start**
 
 ### **1. Installation**
 
