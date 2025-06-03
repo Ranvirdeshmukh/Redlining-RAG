@@ -1,19 +1,24 @@
+/* Apple/Notion Inspired Header */
 .header {
-  background: var(--color-white);
+  background: var(--color-surface);
   border-bottom: 1px solid var(--color-gray-200);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .header-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-base) var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 72px;
 }
 
 .header-left {
@@ -22,31 +27,49 @@
   gap: var(--spacing-base);
 }
 
+/* Apple-inspired Logo Design */
 .logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-base);
-  transition: transform 0.2s ease;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  box-shadow: var(--shadow-sm);
 }
 
 .logo:hover {
   transform: scale(1.05);
+  box-shadow: var(--shadow-base);
 }
 
+.logo svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Notion-style Typography */
 .header-text h1 {
-  font-size: 1.5rem;
+  font-size: 1.625rem;
   font-weight: 700;
-  color: var(--color-gray-900);
+  color: var(--color-text-primary);
   margin: 0;
   line-height: 1.2;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-gray-700) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .header-text p {
   font-size: 0.875rem;
-  color: var(--color-gray-500);
+  color: var(--color-text-secondary);
   margin: 0;
   font-weight: 400;
+  line-height: 1.4;
+  opacity: 0.8;
+  letter-spacing: -0.005em;
 }
 
 .header-right {
@@ -55,52 +78,97 @@
   gap: var(--spacing-base);
 }
 
+/* Apple-style Status Indicator */
 .status-indicator {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: 6px 12px;
-  background-color: var(--color-gray-50);
+  padding: 8px 16px;
+  background: var(--color-background-secondary);
   border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-xl);
   font-size: 0.875rem;
-  color: var(--color-gray-600);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-xs);
 }
 
+.status-indicator:hover {
+  background: var(--color-surface);
+  border-color: var(--color-gray-300);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Sophisticated Status Dot Animation */
 .status-dot {
   width: 8px;
   height: 8px;
-  background-color: var(--color-green);
+  background: radial-gradient(circle, var(--color-green) 0%, #45C55A 100%);
   border-radius: 50%;
-  animation: pulse 2s infinite;
+  position: relative;
+  box-shadow: 0 0 0 2px rgba(81, 207, 102, 0.2);
 }
 
-@keyframes pulse {
+.status-dot::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: rgba(81, 207, 102, 0.3);
+  border-radius: 50%;
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
   0% {
+    transform: scale(0.8);
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    transform: scale(1.2);
+    opacity: 0.3;
   }
   100% {
-    opacity: 1;
+    transform: scale(1.4);
+    opacity: 0;
   }
 }
 
+/* Premium Mobile Responsiveness */
 @media (max-width: 768px) {
   .header-content {
-    padding: var(--spacing-sm) var(--spacing-base);
+    padding: var(--spacing-base) var(--spacing-md);
+    min-height: 64px;
   }
   
   .header-text h1 {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
   }
   
   .header-text p {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
   }
   
   .status-indicator {
+    padding: 6px 12px;
+    font-size: 0.8125rem;
+  }
+  
+  .header-left {
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .status-indicator {
+    display: none;
+  }
+  
+  .header-text p {
     display: none;
   }
 } 
