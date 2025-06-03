@@ -7,7 +7,7 @@ import uvicorn
 import os
 import uuid
 import asyncio
-from typing import Dict, Any
+from typing import Dict, Any, List
 import logging
 from contextlib import asynccontextmanager
 
@@ -186,6 +186,140 @@ async def search_clauses(query: str, limit: int = 10):
     except Exception as e:
         logger.error(f"Error in search: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Search error: {str(e)}")
+
+@app.get("/legal-precedents/{clause_text}")
+async def get_legal_precedents(clause_text: str, limit: int = 5):
+    """Find similar legal precedents for a given clause text"""
+    try:
+        if not clause_text.strip():
+            raise HTTPException(status_code=400, detail="Clause text cannot be empty")
+        
+        # Find legal precedents
+        precedents = rag_engine.find_legal_precedents(clause_text, n_results=limit)
+        
+        if not precedents:
+            return JSONResponse({
+                "success": True,
+                "clause_text": clause_text,
+                "message": "No similar legal precedents found",
+                "precedents": []
+            })
+        
+        # Enrich precedents with risk analysis
+        enriched_precedents = []
+        for precedent in precedents:
+            enriched_precedent = {
+                "text": precedent["text"],
+                "similarity": precedent["similarity"],
+                "risk_level": precedent["metadata"]["risk_level"],
+                "clause_type": precedent["metadata"]["clause_type"],
+                "contract_domain": precedent["metadata"]["contract_domain"],
+                "precedent_strength": precedent["metadata"]["legal_precedent"],
+                "source": precedent["metadata"]["source"],
+                "contract_title": precedent["metadata"].get("contract_title", "Unknown"),
+                "risk_explanation": _get_risk_explanation(precedent["metadata"]["risk_level"])
+            }
+            enriched_precedents.append(enriched_precedent)
+        
+        # Generate summary statistics
+        risk_distribution = {}
+        domain_distribution = {}
+        
+        for precedent in enriched_precedents:
+            # Risk distribution
+            risk = precedent["risk_level"]
+            risk_distribution[risk] = risk_distribution.get(risk, 0) + 1
+            
+            # Domain distribution  
+            domain = precedent["contract_domain"]
+            domain_distribution[domain] = domain_distribution.get(domain, 0) + 1
+        
+        # Calculate average similarity and precedent strength
+        avg_similarity = sum(p["similarity"] for p in enriched_precedents) / len(enriched_precedents)
+        avg_precedent_strength = sum(p["precedent_strength"] for p in enriched_precedents) / len(enriched_precedents)
+        
+        return JSONResponse({
+            "success": True,
+            "clause_text": clause_text,
+            "total_precedents": len(enriched_precedents),
+            "precedents": enriched_precedents,
+            "analysis": {
+                "average_similarity": round(avg_similarity, 3),
+                "average_precedent_strength": round(avg_precedent_strength, 3),
+                "risk_distribution": risk_distribution,
+                "domain_distribution": domain_distribution,
+                "dominant_risk": max(risk_distribution, key=risk_distribution.get),
+                "dominant_domain": max(domain_distribution, key=domain_distribution.get)
+            },
+            "recommendations": _generate_precedent_recommendations(enriched_precedents, clause_text)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error finding legal precedents: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error finding precedents: {str(e)}")
+
+def _get_risk_explanation(risk_level: str) -> str:
+    """Get explanation for risk level"""
+    explanations = {
+        "RED": "High risk - requires immediate legal attention and careful negotiation",
+        "AMBER": "Medium risk - should be reviewed carefully and may need modification", 
+        "GREEN": "Low risk - generally acceptable with standard terms"
+    }
+    return explanations.get(risk_level, "Risk level unclear")
+
+def _generate_precedent_recommendations(precedents: List[Dict], clause_text: str) -> List[str]:
+    """Generate recommendations based on precedent analysis"""
+    recommendations = []
+    
+    if not precedents:
+        return ["No precedents available for analysis"]
+    
+    # Risk-based recommendations
+    risk_counts = {}
+    for precedent in precedents:
+        risk = precedent["risk_level"]
+        risk_counts[risk] = risk_counts.get(risk, 0) + 1
+    
+    dominant_risk = max(risk_counts, key=risk_counts.get)
+    risk_percentage = (risk_counts[dominant_risk] / len(precedents)) * 100
+    
+    if dominant_risk == "RED" and risk_percentage >= 60:
+        recommendations.append(f"⚠️ **High Risk Alert**: {risk_percentage:.0f}% of similar clauses are high-risk")
+        recommendations.append("🔍 **Immediate legal review strongly recommended**")
+        recommendations.append("💼 **Consider alternative wording or additional protections**")
+    elif dominant_risk == "AMBER":
+        recommendations.append(f"⚡ **Moderate Risk**: {risk_percentage:.0f}% of similar clauses require careful review")
+        recommendations.append("📖 **Detailed legal analysis recommended**")
+    else:
+        recommendations.append(f"✅ **Generally Acceptable**: {risk_percentage:.0f}% of similar clauses are low-risk")
+        recommendations.append("👀 **Standard review process sufficient**")
+    
+    # Domain-specific recommendations
+    domains = [p["contract_domain"] for p in precedents]
+    dominant_domain = max(set(domains), key=domains.count) if domains else None
+    
+    if dominant_domain and dominant_domain != 'general':
+        domain_percentage = (domains.count(dominant_domain) / len(domains)) * 100
+        recommendations.append(f"📊 **Industry Context**: {domain_percentage:.0f}% from {dominant_domain} contracts")
+        recommendations.append(f"🎯 **Consider {dominant_domain} industry standards and practices**")
+    
+    # Similarity-based recommendations
+    avg_similarity = sum(p["similarity"] for p in precedents) / len(precedents)
+    if avg_similarity > 0.8:
+        recommendations.append(f"🎯 **Strong Matches Found**: Average similarity {avg_similarity:.1%}")
+        recommendations.append("📚 **High confidence in precedent-based analysis**")
+    elif avg_similarity < 0.5:
+        recommendations.append(f"⚠️ **Limited Similarity**: Average similarity {avg_similarity:.1%}")
+        recommendations.append("🔍 **Consider broader legal research**")
+    
+    # Precedent strength recommendations
+    avg_strength = sum(p["precedent_strength"] for p in precedents) / len(precedents)
+    if avg_strength > 0.8:
+        recommendations.append("💪 **Strong Legal Precedents**: High-quality reference clauses found")
+    elif avg_strength < 0.5:
+        recommendations.append("⚠️ **Weak Precedents**: Consider additional legal research")
+    
+    return recommendations[:8]  # Limit to 8 recommendations
 
 @app.post("/classify-text")
 async def classify_text(request: Dict[str, Any]):
