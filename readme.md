@@ -410,7 +410,7 @@ metadata = {
 ### **🔧 Model Access Issues**
 
 **Mistral-7B Access Required:**
-```bash
+   ```bash
 # Install HuggingFace CLI
 pip install huggingface_hub
 
@@ -425,7 +425,7 @@ huggingface-cli login
 
 ### **📚 Dataset Loading Issues**
 
-```bash
+   ```bash
 # Clear dataset cache if corrupted
 rm -rf legal_data_cache/
 
@@ -435,9 +435,9 @@ python main.py
 
 ### **🗄️ ChromaDB Issues**
 
-```bash
+   ```bash
 # Reset vector database
-rm -rf chroma_db/
+   rm -rf chroma_db/
 
 # System will recreate with legal precedents on restart
 ```
